@@ -1,4 +1,4 @@
-# 🚗 Car Catalog Management App
+# 🚗 DriveEase Frontend
 
 Aplikasi mobile berbasis Flutter untuk manajemen katalog kendaraan yang dibangun menggunakan pendekatan **Clean Architecture** serta **BLoC Pattern** untuk state management yang scalable, maintainable, dan terstruktur.
 
@@ -169,13 +169,6 @@ Aplikasi mengimplementasikan konsep UI modern seperti:
 * Reusable Custom Widgets
 * Responsive Design
 
----
-
-# 📸 Screenshots
-```markdown
-![Login Screen](assets/screenshots/login.png)
-![Dashboard](assets/screenshots/dashboard.png)
-```
 ---
 
 # 🔗 Backend Integration
