@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/core/constant/app_colors.dart';
 import 'package:frontend/core/widgets/custom_toast.dart';
 import 'package:frontend/core/widgets/kategori_input_form.dart';
 import 'package:frontend/data/models/kategori_models.dart';
@@ -19,9 +20,9 @@ class EditCategoryPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Edit Kategori',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.backgroundColor),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -29,11 +30,7 @@ class EditCategoryPage extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xff1a237e), Color(0xffad1457)],
-              ),
+              color: AppColors.backgroundColor
             ),
           ),
           SafeArea(

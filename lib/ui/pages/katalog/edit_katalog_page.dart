@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/core/constant/app_colors.dart';
 import 'package:frontend/core/widgets/katalog_input_form.dart';
 import 'package:frontend/data/models/katalog_models.dart';
 import 'package:frontend/logic/bloc/katalog/katalog_bloc.dart';
@@ -17,9 +18,9 @@ class EditCatalogPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Edit Katalog',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.backgroundColor),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -27,11 +28,7 @@ class EditCatalogPage extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xff1a237e), Color(0xffad1457)],
-              ),
+              color: AppColors.primaryColor
             ),
           ),
           SafeArea(

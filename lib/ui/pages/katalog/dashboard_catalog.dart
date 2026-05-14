@@ -364,10 +364,17 @@ class _DashboardCatalogState extends State<DashboardCatalog> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EditCatalogPage(
-                                                        katalog: katkat,
+                                                  builder: (innerContext) => MultiBlocProvider(
+                                                    providers: [
+                                                      BlocProvider.value(
+                                                        value: context.read<KatalogBloc>(),
                                                       ),
+                                                      BlocProvider.value(
+                                                        value: context.read<KategoriBloc>(),
+                                                      ),
+                                                    ],
+                                                    child: EditCatalogPage(katalog: katkat),
+                                                  ),
                                                 ),
                                               );
                                             }

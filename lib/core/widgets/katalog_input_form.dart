@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/core/constant/api_config.dart';
 import 'package:frontend/core/constant/app_colors.dart';
 import 'package:frontend/core/widgets/custom_dropdown.dart';
 import 'package:frontend/core/widgets/text_field_custom.dart';
@@ -303,6 +304,9 @@ class _KatalogFormWidgetState extends State<KatalogFormWidget> {
                   child: DropdownCustomWidget(
                     label: 'Transmisi',
                     icon: Icons.settings_outlined,
+                    value: const ['Automatic', 'Manual'].contains(_transmisiController.text)
+                              ? _transmisiController.text
+                              : null,
                     items: const ['Automatic', 'Manual'],
                     validator: _requiredValidator,
                     onChanged: (String? newValue) {
@@ -350,38 +354,43 @@ class _KatalogFormWidgetState extends State<KatalogFormWidget> {
                   ),
                 ),
                 child: _imageFile != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.file(_imageFile!, fit: BoxFit.cover),
-                      )
-                    : (_gambarController.text.isNotEmpty &&
-                              _gambarController.text.startsWith('http')
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                _gambarController.text,
-                                fit: BoxFit.cover,
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(_imageFile!, fit: BoxFit.cover),
+                    )
+                  : (_gambarController.text.isNotEmpty 
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              // Cek apakah udah full URL atau belum, kalau belum tambahin ApiConfig
+                              _gambarController.text.startsWith('http') 
+                                  ? _gambarController.text 
+                                  // Jangan lupa import ApiConfig-nya ya kak di atas!
+                                  : "${ApiConfig.imgBaseUrl}${_gambarController.text}",
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => 
+                                  const Center(child: Icon(Icons.broken_image, color: Colors.grey)),
+                            ),
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add_photo_alternate_outlined,
+                                size: 48,
+                                color: Colors.grey.shade400,
                               ),
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add_photo_alternate_outlined,
-                                  size: 48,
-                                  color: Colors.grey.shade400,
+                              const SizedBox(height: 12),
+                              Text(
+                                'Tap untuk pilih gambar dari galeri',
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  'Tap untuk pilih gambar dari galeri',
-                                  style: TextStyle(
-                                    color: Colors.grey.shade500,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            )),
+                              ),
+                            ],
+                          )),
               ),
             ),
             const SizedBox(height: 32),
