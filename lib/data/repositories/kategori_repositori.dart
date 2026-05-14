@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:frontend/data/models/kategori_models.dart';
-import 'package:frontend/services/api_config.dart';
+import 'package:frontend/core/constant/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/data/providers/storage_providers.dart';
 
@@ -12,7 +12,7 @@ class KategoriRepositori {
     final token = await storage.getToken();
 
     final response = await http.get(
-      Uri.parse('${ApiConfig.baseUrl}/kategori/'),
+      Uri.parse('${ApiConfig.baseUrl}kategori'),
       headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
     );
 
@@ -29,7 +29,7 @@ class KategoriRepositori {
     final token = await storage.getToken();
 
     final response = await http.post(
-      Uri.parse('${ApiConfig.baseUrl}/api/kategori'),
+      Uri.parse('${ApiConfig.baseUrl}kategori'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -48,7 +48,7 @@ class KategoriRepositori {
     final token = await storage.getToken();
 
     final response = await http.put(
-      Uri.parse('${ApiConfig.baseUrl}/api/kategori/$id'),
+      Uri.parse('${ApiConfig.baseUrl}kategori/$id'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -67,7 +67,7 @@ class KategoriRepositori {
     final token = await storage.getToken();
 
     final response = await http.delete(
-      Uri.parse('${ApiConfig.baseUrl}/api/kategori/$id'),
+      Uri.parse('${ApiConfig.baseUrl}kategori/$id'),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'

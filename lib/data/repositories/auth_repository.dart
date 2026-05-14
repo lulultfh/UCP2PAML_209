@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend/services/api_config.dart';
+import 'package:frontend/core/constant/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/data/models/user_models.dart';
 import 'dart:developer' as developer;
@@ -21,7 +21,7 @@ class AuthRepository {
   Future<UserModels> login(String username, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('${ApiConfig.baseUrl}/auth/login'),
+        Uri.parse('${ApiConfig.baseUrl}auth/login'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -33,7 +33,7 @@ class AuthRepository {
 
       if (response.statusCode == 200) {
         await persistToken(data['token']);
-        return UserModels.fromJson(data['user']);
+        return UserModels.fromJson(data['data']);
       } else {
         throw data['message'] ?? 'Gagal Login';
       }
@@ -52,7 +52,7 @@ class AuthRepository {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('${ApiConfig.baseUrl}/auth/register'),
+        Uri.parse('${ApiConfig.baseUrl}auth/register'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
