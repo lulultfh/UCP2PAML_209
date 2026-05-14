@@ -11,7 +11,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
     super.key,
     required this.title,
     required this.content,
-    required this.confirmText,
+    this.confirmText = "Hapus",
     required this.onConfirm,
   });
 
@@ -38,7 +38,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            onConfirm(); // Jalankan fungsi hapus
+            onConfirm(); 
             Navigator.pop(context); // Tutup dialog
           },
           style: ElevatedButton.styleFrom(
@@ -47,7 +47,10 @@ class ConfirmDeleteDialog extends StatelessWidget {
                 : Colors.redAccent,    
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
-          child: const Text("Hapus", style: TextStyle(color: Colors.white)),
+          child: Text(
+            confirmText,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
       ],
     );

@@ -105,11 +105,18 @@ class _DashboardCatalogState extends State<DashboardCatalog> {
                   confirmText: "Logout", 
                   onConfirm: () {
                     context.read<AuthBloc>().add(LogoutRequested());
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                      (route) => false,
-                    );
+                    Navigator.pop(dialogContext);
+                    Future.microtask(() {
+                      if (context.mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                    });
                   },
                 ),
               );

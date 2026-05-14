@@ -22,7 +22,10 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Admin Panel",
-          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.backgroundColor),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.backgroundColor,
+          ),
         ),
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
@@ -34,17 +37,21 @@ class HomePage extends StatelessWidget {
                 builder: (dialogContext) => ConfirmDeleteDialog(
                   title: "Konfirmasi Logout",
                   content: "Apakah Anda yakin ingin keluar dari Admin Panel?",
-                  confirmText: "Logout", 
+                  confirmText: "Logout",
                   onConfirm: () {
-                    // Jalankan logout
                     context.read<AuthBloc>().add(LogoutRequested());
-                    
-                    // Arahkan ke Login dan hapus semua history
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                      (route) => false,
-                    );
+                    Navigator.pop(dialogContext);
+                    Future.microtask(() {
+                      if (context.mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                    });
                   },
                 ),
               );
@@ -57,9 +64,7 @@ class HomePage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              color: AppColors.backgroundColor
-            ),
+            decoration: const BoxDecoration(color: AppColors.backgroundColor),
           ),
           SafeArea(
             child: Padding(
@@ -71,7 +76,7 @@ class HomePage extends StatelessWidget {
                   _buildAdminMenu(
                     context,
                     title: "Manajemen Katalog",
-                    
+
                     icon: Icons.directions_car_outlined,
                     onTap: () {
                       Navigator.push(
@@ -86,7 +91,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 20),
                   _buildAdminMenu(
                     context,
-                    title: "Manajemen Kategori" ,
+                    title: "Manajemen Kategori",
                     icon: Icons.category_outlined,
                     onTap: () {
                       Navigator.push(
