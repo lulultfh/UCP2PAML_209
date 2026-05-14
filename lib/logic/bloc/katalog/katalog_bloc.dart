@@ -26,7 +26,7 @@ class KatalogBloc extends Bloc<KatalogEvent, KatalogState> {
         emit(KatalogError(e.toString()));
       }
     });
-     on<UpdateKatalog>((event, emit) async {
+    on<UpdateKatalog>((event, emit) async {
       emit(KatalogLoading());
       try {
         await repository.updateKatlog(event.id, event.data);
@@ -42,6 +42,15 @@ class KatalogBloc extends Bloc<KatalogEvent, KatalogState> {
         await repository.deleteKatalog(event.id);
         emit(KatalogCreatedSuccess());
         add(FetchKatalog());
+      } catch (e) {
+        emit(KatalogError(e.toString()));
+      }
+    });
+    on<FetchKatalogByKategori>((event, emit) async {
+      emit(KatalogLoading());
+      try {
+        final list = await repository.getKatalogByKategori(event.idKat);
+        emit(KatalogLoaded(list));
       } catch (e) {
         emit(KatalogError(e.toString()));
       }

@@ -28,3 +28,11 @@ class DeleteKatalog extends KatalogEvent {
   @override
   List<Object> get props => [id];
 }
+
+class FetchKatalogByKategori extends KatalogEvent{
+  final int idKat;
+  FetchKatalogByKategori(this.idKat);
+
+  @override
+  List<Object> get props => [idKat];
+}
